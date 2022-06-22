@@ -1,0 +1,157 @@
+---
+title:     "**dataxray**  ![dataxray](imgs/hex_xray.png){width=13%}"
+subtitle:  "An Interactive Table Interface for Data Summaries"
+author:    "<br> **Stephanie Lussier** <br> **Agustin Calatroni** <br>
+               
+            ![rho](imgs/rho_logo.png){width=15%}"
+
+date:      "useR! 2022: Session 20, Data Visualization <br>
+            Wednesday, 22 June 2022"
+format:
+  revealjs: 
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+---
+
+
+
+## Why review data? {.smaller}
+
+:::: {.columns}
+
+::: {.fragment .column width="50%"}
+Outliers^[bookdown.org/dli/rguide/] <br>
+![outliers](imgs/outliers.png){.fragment height="60%" width="60%"} 
+
+:::{.fragment }
+Erroneous data^[statisticsbyjim.com] <br>
+![errors](imgs/outright.png){.fragment height="60%" width="60%"}
+:::
+:::
+
+::: {.fragment .column width="50%"}
+Unexpected covariates <br>
+![covariates](imgs/covariate.png){.fragment  height="50%" width="50%"}
+
+:::{.fragment }
+Missing data^[r-cubed.rostools.org/]<br>
+![missing data](imgs/missing.png){.fragment  height="50%" width="50%"}
+:::
+:::
+
+::::
+
+## Hmisc::describe {.scrollable}
+
+```{r}
+library(tidyverse)
+knitr::include_app("https://sjlussier.github.io/useR2022_dataxray/exs/describe.html", height = "800px")
+```
+
+## A modern framework
+
+
+:::: {.columns}
+
+::: {.fragment .column width="33%"}
+plotly ^[plotly-r.com]
+![example plotly](imgs/plotly.PNG)
+:::
+
+<!-- . . . -->
+
+::: {.fragment .column width="33%"}
+reactable ^[glin.github.io/reactable]
+![example reactable](imgs/reactable.PNG)
+:::
+
+<!-- . . . -->
+
+::: {.fragment .column width="33%"}
+crosstalk ^[rstudio.github.io/crosstalk]
+![example crosstalk](imgs/crosstalk.PNG)
+:::
+
+::::
+
+
+## Instructions {auto-animate="true"}
+
+-   Create xray object
+-   Display xray
+
+``` r
+library(dataxray)
+
+gtsummary::trial %>%
+  make_xray()
+```
+
+## Instructions {.scrollable auto-animate="true"}
+
+-   Create xray object
+-   Display xray
+
+```{r}
+#| echo: true
+library(dataxray)
+
+gtsummary::trial %>%
+  make_xray() %>%
+  view_xray()
+```
+
+## Instructions
+
+``` r
+gtsummary::trial %>%
+  report_xray(data_name = "trial", study = "gtsummary")
+```
+
+##  {background-iframe="https://sjlussier.github.io/useR2022_dataxray/exs/gtsummary_trial_xray.html" background-interactive="TRUE"}
+
+## Metrics
+
+```{r}
+#| echo: false
+
+library(describer)
+get_metrics_info()
+```
+
+## group_by
+
+``` {.r code-line-numbers="1|4"}
+adlb <- read_xpt(str_glue("https://raw.githubusercontent.com/phuse-org/phuse-scripts/master/data/adam/cdiscpilot01/adlbc.xpt")) 
+
+adlb %>%
+  report_xray(by = "PARAM", 
+              study = "PHUSE", 
+              data_name = "ADLB")
+```
+
+##  {background-iframe="https://sjlussier.github.io/useR2022_dataxray/exs/PHUSE_ADLB_xray.html" background-interactive="TRUE"}
+
+
+## Next Steps
+
+CRAN release coming soon!
+
+``` r
+devtools::install_github("agstn/dataxray")
+```
+<br>
+
+. . .
+
+[Acknowledgements:]{.underline}
+
+::: fragment
+Hmisc::describe()
+:::
+
+::: fragment
+Agustin Calatroni and Becca Krouse
+   ![teamtibbles](imgs/tibbles.jpg){.fragment}
+:::
