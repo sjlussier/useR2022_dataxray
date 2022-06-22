@@ -1,0 +1,17 @@
+---
+subtitle:   "Data: **gtsummary::trial**"  
+date:       "Created: `r format(Sys.time(),format='%A %d %b %Y  %I:%M %p %Z')`"
+output:     html_document 
+---
+
+```{r echo=FALSE} 
+knitr::opts_chunk$set(echo = FALSE, warnings = FALSE, message = FALSE) 
+```
+
+```{r echo=FALSE, results = 'asis', warning=FALSE}
+library(dataxray)
+library(gtsummary)
+
+trial %>% 
+  report_xray(data_name = "trial", study = "gtsummary")
+```

@@ -1,0 +1,31 @@
+---
+subtitle:   "Data: **PHUSE::adlb**"  
+date:       "Created: `r format(Sys.time(),format='%A %d %b %Y  %I:%M %p %Z')`"
+output:     html_document 
+---
+
+```{r echo=FALSE} 
+knitr::opts_chunk$set(echo = FALSE, warnings = FALSE, message = FALSE) 
+```
+
+```{r echo=FALSE, results = 'asis', warning=FALSE}
+library(dataxray)
+library(tidyverse)
+library(haven)
+
+adlb <- read_xpt(str_glue("https://raw.githubusercontent.com/phuse-org/phuse-scripts/master/data/adam/cdiscpilot01/adlbc.xpt")) 
+
+adlb2 <- adlb %>%
+  filter(PARAMCD %in% c('GLUC','K','PROT','PHOS','ALT','AST')) %>%
+  mutate(AVAL = as.numeric(AVAL), 
+         BASE = as.numeric(BASE), 
+         CHG = as.numeric(CHG)) %>%
+  select(SUBJID, TRTP, TRTA, AGE, SEX, RACE,
+         AVISIT, ADT, ADY, PARAM, PARAMCD, PARAMN, AVAL, BASE, CHG, ABLFL) 
+  
+
+adlb2 %>%
+  report_xray(by = 'PARAM', 
+              study = "PHUSE", 
+              data_name = "ADLB")
+```

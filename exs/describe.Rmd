@@ -1,0 +1,16 @@
+---
+subtitle:   "Data: **gtsummary::trial**"  
+date:       "Created: `r format(Sys.time(),format='%A %d %b %Y  %I:%M %p %Z')`"
+output:     html_document 
+---
+
+```{r echo=FALSE} 
+knitr::opts_chunk$set(echo = FALSE, warnings = FALSE, message = FALSE) 
+```
+
+```{r echo=FALSE, results = 'asis', warning=FALSE}
+library(Hmisc)
+library(gtsummary)
+
+html(describe(trial, digits = 3), size=80, width="100%", scroll = FALSE)
+```
